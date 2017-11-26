@@ -1,5 +1,4 @@
 def read_files(name):
-    """функция чтения файлов"""
     import chardet
     with open(name, 'rb') as f:
         data = f.read()
@@ -9,44 +8,41 @@ def read_files(name):
 
 
 def count_word(original_text):
-    """функция подсчета слов длиннее 6 символов"""
     to_list = original_text.split(' ')
     to_set = set()
-    for i in to_list:  # заполняем множество с уникальными словами длиной больше 6 символов
+    for i in to_list:  
         if len(i) > 6:
             to_set.add(i)
-    word_value = {}  # ищем слова из множества в списке, считаем количество, формируем словарь типа слово:количество
+    word_value = {}  
     for i in to_set:
         count = 0
         for j in to_list:
             if i == j:
                 count += 1
         word_value[i] = count
-    return word_value  # возвращаем словарь {слово:количество}
+    return word_value  
 
 
 def sort_top(word_value):
-    """функция сортировки и вывода ТОП-10"""
     register = list()
     l_dict = str(len(word_value))
     for i in word_value.items():
         l_word = str(i[1])
         register.append((len(l_dict) - len(l_word)) * '0' + str(i[1]) + ' ' + i[
-            0])  # разворачиваем и добавляем нули перед кол-вом для сорт, делаем слияние элементов = '00012слово'
+            0])  
     register.sort(reverse=True)
     top_10 = {}
     count = 1
     for j in register:
-        top_10[count] = j.split(' ')  # получаем словарь типа {1: (количество, слово)}
+        top_10[count] = j.split(' ')  
         top_10[count][0] = int(top_10[count][0])
         if count == 10:
             break
         count += 1
-    return top_10  # возвращаем отсортированный словарь ТОП-10 {номер: (количеств, слово)}
+    return top_10  
 
 
 def main():
-    """главная функция: запрашивает имя файла, запускает другие функции"""
     while True:
         name = input('Введите имя файла: newsfr.txt, newsit.txt, newsafr.txt, newscy.txt. Выход - exit: ')
         if name == 'newsfr.txt' or name == 'newsit.txt' or name == 'newsafr.txt' or name == 'newscy.txt':
